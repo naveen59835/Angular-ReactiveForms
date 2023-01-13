@@ -1,0 +1,137 @@
+
+<body>
+
+<form class="example-form" [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+
+    <mat-form-field class="example-full-width" style="width: 200%; position: relative;left: 100px;top: 50px;">
+      <mat-label>Title</mat-label>
+      <input type="text" matInput formControlName="title" placeholder="please enter title">
+      <span *ngIf="title?.errors?.['required']">Title required</span>
+      <span *ngIf="profileForm.get ('title')?.errors?.['maxlength']">max length is 100</span>
+      
+    
+    </mat-form-field>
+
+
+
+
+    <mat-form-field style="width: 200px; position: relative;left: 50px; top: 105px;">
+        <mat-label>Enter checkin time</mat-label>
+        <input matInput #input maxlength="10" placeholder="Enter Check-in Time" >
+        <span *ngIf="timein?.errors?.['required']">Timein required</span>
+        <mat-select formControlName="timein">
+          <mat-option *ngFor="let time of times" value="{{time}}" >
+              {{time}}
+          </mat-option>
+      </mat-select>
+       
+      </mat-form-field>
+
+
+      
+
+
+<div >
+      <mat-form-field appearance="fill" style="position: relative;left: 300px; width:250px">
+        <!-- <mat-label>Choose a date</mat-label> -->
+        <input matInput [matDatepicker]="picker" formControlName="start" [min]="minDate">
+        <span *ngIf="start?.errors?.['required']">date required</span>
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </div>
+
+
+
+<div>
+      <mat-form-field appearance="fill" style="display: flex;margin-left: 660px;position: relative;bottom: 100px; width:250px"> 
+        <!-- <mat-label>Choose a date</mat-label> -->
+        <input matInput [matDatepicker]="picker1" formControlName="end" [min]="minDate" [max]="maxDate">
+        <span *ngIf="end?.errors?.['required']">date required</span>
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+      </mat-form-field> 
+    </div>
+       
+
+          <mat-form-field style="width: 200px; position: relative;left: 1000px; bottom: 235px;">
+            <mat-label>Enter checkout time</mat-label>
+            <input matInput #input maxlength="10" placeholder="Enter check-out Time">
+            <!-- <span *ngIf="timeout?.errors?.['required']">checkout time required</span> -->
+            <span *ngIf="timeout?.errors?.['required']">check-out time required</span>
+            <mat-select formControlName="timeout">
+              <mat-option *ngFor="let time of times" value="{{time}}" >
+                  {{time}}
+              </mat-option>
+          </mat-select>
+           
+          </mat-form-field>
+      
+ 
+    
+
+     
+          <mat-form-field appearance="fill" class="example-form-field" style="width:100%;height:250px;position: relative;left: 100px;bottom: 150px;">
+            <mat-label>guests</mat-label>
+            <mat-chip-grid #chipGrid aria-label="Enter keywords" [formControl]="formControl" >
+             
+              
+            </mat-chip-grid>
+            
+            <input placeholder="Guests email"
+            
+                    [matChipInputFor]="chipGrid"
+                    (matChipInputTokenEnd)="add($event)" formControlName="guests"/>
+                    <span *ngIf="guests?.errors?.['required']">Guests required</span>
+                    <span *ngIf="guests?.errors?.['pattern']">
+                     pattern not matching
+                    </span>
+                    <!-- <span *ngIf="profileForm.errors?.['checkIfGuestEmailsAreValid']"></span> -->
+                    
+          </mat-form-field>
+<div style="position: relative;bottom: 150px; left: 100px;">
+          <mat-chip-row *ngFor="let keyword of keywords" (removed)="removeKeyword(keyword)">
+            {{keyword}}
+            
+            <button matChipRemove aria-label="'remove ' + keyword">
+              <!-- <mat-icon>cancel</mat-icon> -->
+            </button>
+          </mat-chip-row>
+        </div>
+          
+          
+
+
+
+
+
+      <mat-form-field class="example-full-width" style="width:100%;height:150px;position: relative;left: 700px;bottom: 400px;">
+        <mat-label>comments</mat-label>
+        <input type="text" matInput placeholder="comments" formControlName="comments"/>
+        <span *ngIf="comments?.errors?.['required']">comments required</span>
+      </mat-form-field>
+
+
+      <button type="submit" [disabled]="!profileForm.valid" mat-button style="color: whitesmoke; background-color: brown; position: relative;bottom: 250px;" (click)="openSnackBar()">Save</button>
+      
+
+    </form>
+   
+  
+
+</body>
+
+
+
+
+
+
+
+
+
+      
+
+   
+      
